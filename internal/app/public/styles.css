@@ -1,0 +1,25 @@
+.flex {
+  display: flex
+}
+
+.flex-col {
+  flex-direction: column
+}
+
+.gap-y-2 {
+  row-gap: 0.5rem
+}
+
+.bg-red-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 242 242 / var(--tw-bg-opacity))
+}
+
+.p-28 {
+  padding: 7rem
+}
+
+.antialiased {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale
+}

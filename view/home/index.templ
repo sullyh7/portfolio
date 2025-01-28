@@ -1,0 +1,15 @@
+package home
+
+import (
+	"github.com/sullyh7/portfolio/view/components"
+	"github.com/sullyh7/portfolio/view/layout"
+)
+
+templ Index() {
+	@layout.App(true) {
+		<div>
+			@components.Header()
+			@components.Projects()
+		</div>
+	}
+}
