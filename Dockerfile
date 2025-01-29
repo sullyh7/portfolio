@@ -1,26 +1,29 @@
-FROM golang:1.22-alpine as builder
+# Step 1: Use official Golang image
+FROM golang:1.21 AS builder
 
 WORKDIR /app
 
-RUN apk add --no-cache make nodejs npm git
-
 COPY go.mod go.sum ./
-RUN go mod download
 
-COPY . ./
-RUN make install
-RUN make build
+RUN go mod tidy && go mod download
 
-RUN make templ
+RUN go install github.com/a-h/templ/cmd/templ@latest && \
+    npm install -D tailwindcss
 
-RUN touch /app/.env
+COPY . .
 
-FROM builder
+RUN npx @tailwindcss/cli -i view/css/app.css -o ./view/public/styles.css
 
-COPY --from=builder /app/bin/main /main
+RUN templ generate view
 
-# COPY --from=builder /app/.env .env
+RUN go build -tags prod -o bin/main ./cmd/app
 
-EXPOSE 3000
+FROM gcr.io/distroless/base-debian11
 
-ENTRYPOINT [ "/portfolio" ]
+WORKDIR /app
+
+COPY --from=builder /app/bin/main /app/main
+
+EXPOSE 8080
+
+CMD ["/app/main"]

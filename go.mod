@@ -4,11 +4,11 @@ go 1.23.5
 
 require (
 	github.com/a-h/templ v0.3.819
+	github.com/dimmerz92/go-templ-lucide v0.2.0
 	github.com/labstack/echo/v4 v4.13.3
 )
 
 require (
-	github.com/dimmerz92/go-templ-lucide v0.2.0 // indirect
 	github.com/labstack/gommon v0.4.2 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
