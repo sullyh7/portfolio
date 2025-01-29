@@ -5,11 +5,18 @@ import (
 	"github.com/sullyh7/portfolio/view/layout"
 )
 
-templ Index() {
-	@layout.App(true) {
+type HomePageProps struct {
+	AboutMe    components.HeaderProps
+	Projects   []components.ProjectCardProps
+	Experience []components.ExperienceProps
+}
+
+templ Index(app layout.AppProps, home HomePageProps) {
+	@layout.App(app) {
 		<div>
-			@components.Header()
-			@components.Projects()
+			@components.Header(home.AboutMe)
+			@components.Experience(home.Experience)
+			@components.Projects(home.Projects)
 		</div>
 	}
 }

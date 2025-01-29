@@ -1,8 +1,6 @@
 module github.com/sullyh7/portfolio
 
-go 1.23.2
-
-toolchain go1.23.5
+go 1.23.5
 
 require (
 	github.com/a-h/templ v0.3.819
@@ -10,6 +8,7 @@ require (
 )
 
 require (
+	github.com/dimmerz92/go-templ-lucide v0.2.0 // indirect
 	github.com/labstack/gommon v0.4.2 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect

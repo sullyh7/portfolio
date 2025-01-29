@@ -2,23 +2,27 @@ package layout
 
 import "github.com/sullyh7/portfolio/view/components"
 
-templ App(nav bool) {
+type AppProps struct {
+	NavLinks []components.NavLink
+}
+
+templ App(props AppProps) {
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
 			<meta charset="utf-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1"/>
-			<meta name="color-scheme" content="light dark"/>
 			<link rel="stylesheet" href="/public/styles.css"/>
 			<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 			<script src="https://unpkg.com/lucide@latest"></script>
 			<script src="https://unpkg.com/htmx.org@2.0.0" integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
 			<title>Sulayman Hasan</title>
 		</head>
-		<body>
-			<main data-theme="cupcake" class="min-h-screen bg-terminal-background text-terminal-foreground">
-				@components.Navigation()
+		<body data-theme="terminal" class="bg-base-100 text-base-content">
+			<main class="min-h-screen ">
+				if len(props.NavLinks) > 0 {
+					@components.Navigation(props.NavLinks)
+				}
 				<div class="antialiased max-w-4xl mx-auto py-8">
 					{ children... }
 				</div>

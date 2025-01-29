@@ -1,22 +1,28 @@
 package components
 
-templ Header() {
+type HeaderProps struct {
+	Name, Role, Description string
+	Socials                 []Social
+}
+
+type Social struct {
+	Name string
+	URL  string
+}
+
+templ Header(props HeaderProps) {
 	<div class="p-4 font-mono">
-		<h1 class="text-3xl font-bold text-[#ff6b6b] mb-2">Sulayman Hasan</h1>
-		<div class="text-neutral-400">Aspiring Software Engineer 👨‍💻</div>
+		<h1 class="text-3xl font-bold text-primary mb-2">{ props.Name }</h1>
+		<div class="text-neutral-400">{ props.Role }</div>
 		<p class="mt-4 text-neutral-300 max-w-xl">
-			Hi! I'm a passionate fullstack developer with expertise in SvelteKit, Vue.js, and Golang. I'm currently working on exciting projects that combine my skills in backend engineering and frontend development from .
+			{ props.Description }
 		</p>
 		<div class="flex gap-2 mt-4">
-			<a href="https://github.com" class="text-neutral-500 hover:text-neutral-300">
-				GitHub
-			</a>
-			<a href="https://linkedin.com" class="text-neutral-500 hover:text-neutral-300">
-				LinkedIn
-			</a>
-			<a href="https://twitter.com" class="text-neutral-500 hover:text-neutral-300">
-				Twitter
-			</a>
+			for _, social := range props.Socials {
+				<a key={ social.URL } href={ templ.SafeURL(social.URL) } class="text-neutral-500 hover:text-neutral-300">
+					{ social.Name }
+				</a>
+			}
 		</div>
 	</div>
 }

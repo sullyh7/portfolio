@@ -1,5 +1,7 @@
 package components
 
+import "github.com/dimmerz92/go-templ-lucide/icons"
+
 type ProjectCardProps struct {
 	Name         string
 	Date         string
@@ -9,31 +11,27 @@ type ProjectCardProps struct {
 	Tech         []string
 	Contribution string
 	URL          string
+	LiveDemo     bool
 }
 
 templ ProjectCard(props ProjectCardProps) {
 	<div class="border border-neutral-800 rounded-lg p-4 font-mono">
 		<div class="flex items-start justify-between">
 			<div class="flex items-center gap-3">
-				<div class="text-[#ff6b6b]">◇</div>
+				@icons.Box("text-primary size-5")
 				<div>
 					<div class="font-medium text-neutral-200">{ props.Name }</div>
 					<div class="text-sm text-neutral-500">{ props.Date }</div>
 				</div>
 			</div>
-			<a href="{{props.URL}}" class="text-neutral-600 hover:text-neutral-400">
-				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						strokeWidth="2"
-						d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-					></path>
-				</svg>
-			</a>
+			if props.LiveDemo {
+				<a href={ templ.SafeURL(props.URL) } target="_blank" class="text-primary hover:cursor-pointer">
+					@icons.SquareArrowOutUpRight("w-5 h-5 font-light")
+				</a>
+			}
 		</div>
 		<div class="mt-2 flex items-center gap-2 text-sm">
-			<span class="text-neutral-500">{ props.Status }</span>
+			// <span class="text-neutral-500">{ props.Status }</span>
 			<span class="text-neutral-700">•</span>
 			<span class="text-neutral-500">{ props.ProjectType }</span>
 		</div>
@@ -55,11 +53,19 @@ templ ProjectCard(props ProjectCardProps) {
 	</div>
 }
 
-templ Projects() {
-	<div class="p-4 font-mono">
-		<div class="text-sm text-neutral-500 mb-4">+ featured-projects --list</div>
+templ Projects(props []ProjectCardProps) {
+	<div class="p-4 font-mono" id="projects">
+		<div class="text-sm text-primary mb-4">+ featured-projects</div>
 		<div class="space-y-4">
-			@ProjectCard(
+			for _, prop := range props {
+				@ProjectCard(prop)
+			}
+		</div>
+	</div>
+}
+
+/*
+@ProjectCard(
 				ProjectCardProps{
 					Name:         "Test",
 					Date:         "2024",
@@ -69,13 +75,7 @@ templ Projects() {
 					Tech:         []string{"dw", "adwd", "nextJS"},
 					URL:          "google.com",
 					Contribution: "wdad",
+					LiveDemo:     true,
 				},
 			)
-		</div>
-		<div class="mt-6">
-			<a href="#" class="text-neutral-500 hover:text-neutral-300">
-				View all projects →
-			</a>
-		</div>
-	</div>
-}
+*/

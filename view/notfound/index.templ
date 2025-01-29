@@ -1,0 +1,29 @@
+package notfound
+
+import (
+	"github.com/dimmerz92/go-templ-lucide/icons"
+	"github.com/sullyh7/portfolio/view/layout"
+)
+
+templ Index() {
+	@layout.App(layout.AppProps{NavLinks: nil}) {
+		<main class="flex-grow flex flex-col items-start justify-center text-base-content p-8 font-mono">
+			<div class="w-full max-w-3xl">
+				<h1 class="text-4xl text-primary mb-4">404_NOT_FOUND</h1>
+				<div class="mb-8">
+					<h2 class="text-2xl text-primary mb-2">+ error details</h2>
+					<div class=" p-4 rounded-lg">
+						<p>$ location --current</p>
+						<p class="text-[#8b949e]">Path not found in directory</p>
+						<p>$ suggest --solution</p>
+						<p class="text-[#8b949e]">Navigate back to <a class="underline" href="/">home</a></p>
+					</div>
+				</div>
+				<div class="flex items-center space-x-4">
+					@icons.FileSearch("w-10 h-10")
+					<p>The requested page could not be found.</p>
+				</div>
+			</div>
+		</main>
+	}
+}

@@ -1,0 +1,33 @@
+package components
+
+import "github.com/dimmerz92/go-templ-lucide/icons"
+
+type ItemProps struct {
+	Description string
+	Href        string
+}
+
+templ ProjectNav(props ItemProps) {
+	<div class="border border-neutral-800 rounded-lg p-4 font-mono">
+		<div class="flex items-start justify-between">
+			<div class="flex items-center gap-3">
+				@icons.Box("text-primary size-4")
+				<div>
+					<div class="font-medium text-neutral-200">{ props.Description }</div>
+					<div class="text-sm text-neutral-500">{ props.Href }</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+templ PageNavigationList(navigationsItems []ItemProps) {
+	<div class="p-4 font-mono ">
+		<div class="text-sm text-neutral-500 mb-4">+ page contents</div>
+		<div class="space-y-4">
+			for _, item := range navigationsItems {
+				@ProjectNav(item)
+			}
+		</div>
+	</div>
+}

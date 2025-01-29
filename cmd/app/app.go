@@ -8,6 +8,7 @@ import (
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
 	"github.com/sullyh7/portfolio/view"
+	"github.com/sullyh7/portfolio/view/notfound"
 )
 
 type application struct {
@@ -27,6 +28,9 @@ func (app *application) mount() *echo.Echo {
 
 	// r.Use(middleware.Timeout())
 	assetHandler := http.FileServer(view.GetPublicAssetsFileSystem())
+	r.RouteNotFound("/*", func(c echo.Context) error {
+		return app.render(c, 404, notfound.Index())
+	})
 	r.GET("/public/*", echo.WrapHandler(http.StripPrefix("/public/", assetHandler)))
 	r.GET("/health", func(c echo.Context) error {
 		return c.String(200, "ok")

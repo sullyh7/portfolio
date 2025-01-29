@@ -1,34 +1,27 @@
 package components
 
-templ Navigation() {
+import "github.com/dimmerz92/go-templ-lucide/icons"
+
+type NavLink struct {
+	Title string
+	Href  string
+}
+
+templ Navigation(navLinks []NavLink) {
 	<nav class=" p-4 font-mono">
-		<div class="max-w-4xl mx-auto flex justify-center gap-y-10 items-center">
+		<div class="max-w-4xl mx-auto flex justify-between gap-y-10 items-center">
+			<div class="flex items-center justify-center gap-x-2">
+				@icons.FileDown("text-primary")
+				CV
+			</div>
 			<ul class="flex space-x-4">
-				<li>
-					<a href="#" class="text-neutral-400 hover:text-neutral-200 underline">
-						Home
-					</a>
-				</li>
-				<li>
-					<a href="#" class="text-neutral-400 hover:text-neutral-200 underline">
-						Projects
-					</a>
-				</li>
-				<li>
-					<a href="#" class="text-neutral-400 hover:text-neutral-200 underline">
-						Blog
-					</a>
-				</li>
-				<li>
-					<a href="#" class="text-neutral-400 hover:text-neutral-200 underline">
-						Contact
-					</a>
-				</li>
-				<li>
-					<a href="#" class="text-neutral-400 hover:text-neutral-200 underline">
-						Download My CV
-					</a>
-				</li>
+				for _, nav := range navLinks {
+					<li>
+						<a href={ templ.SafeURL(templ.SafeURL(nav.Href)) } class="text-neutral-400 hover:text-neutral-200 underline">
+							{ nav.Title }
+						</a>
+					</li>
+				}
 			</ul>
 		</div>
 	</nav>

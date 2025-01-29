@@ -13,7 +13,13 @@ import (
 	"github.com/sullyh7/portfolio/view/layout"
 )
 
-func Index() templ.Component {
+type HomePageProps struct {
+	AboutMe    components.HeaderProps
+	Projects   []components.ProjectCardProps
+	Experience []components.ExperienceProps
+}
+
+func Index(app layout.AppProps, home HomePageProps) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -50,11 +56,15 @@ func Index() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = components.Header().Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = components.Header(home.AboutMe).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = components.Projects().Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = components.Experience(home.Experience).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.Projects(home.Projects).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -64,7 +74,7 @@ func Index() templ.Component {
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = layout.App(true).Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = layout.App(app).Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
