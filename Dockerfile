@@ -1,18 +1,24 @@
-# Step 1: Use official Golang image
+# Step 1: Use official Golang image for building
 FROM golang:1.23.5 AS builder
 
 WORKDIR /app
+
+RUN apt-get update && apt-get install -y curl && \
+    curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g npm
 
 COPY go.mod go.sum ./
 
 RUN go mod tidy && go mod download
 
-RUN go install github.com/a-h/templ/cmd/templ@latest && \
-    npm install -D tailwindcss
+RUN go install github.com/a-h/templ/cmd/templ@latest
 
 COPY . .
 
-RUN npx @tailwindcss/cli -i view/css/app.css -o ./view/public/styles.css
+RUN npm install -D tailwindcss
+
+RUN npx tailwindcss -i view/css/app.css -o ./view/public/styles.css
 
 RUN templ generate view
 
